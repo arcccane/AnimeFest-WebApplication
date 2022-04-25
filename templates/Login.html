@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Library Loan System - Create User{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="display-4">Login Account</h1>
+<br>
+<form action="/adminlogin">
+    <input type="submit" value="Admin"/>
+</form>
+<br>
+<form action="/customerlogin">
+    <input type="submit" value="Customer"/>
+</form>
+<br>
+
+<form method="POST" action="">
+
+  <div class="form-group">
+    {{ render_field(form.username, class="form-control", style="list-style-type:none") }}
+  </div>
+  <div id="prof">
+    <div class="form-group">
+      {{ render_field(form.password, class="form-control") }}
+    </div>
+  </div>
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes style="border-radius:20px;width: 355px;">
+    {% for message in messages %}
+      <li style="list-style-type:none; background-color:none; width: 330px;
+  padding:10px;border-radius: 12px;">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+  <br>
+  <input type="submit" value="Submit" class="btn btn-primary"/>
+</form>
+{% endblock %}
+
+

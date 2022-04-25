@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+{% block title %}AnimeFest Asia - Retrieve Feedback{% endblock %}
+
+{% block content %}
+{% if 'user_created' in session %}
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('user_created', None) }} was created.
+</div>
+{% elif 'user_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('user_updated', None) }} was updated.
+</div>
+{% elif 'user_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('user_deleted', None) }} was deleted.
+</div>
+{% endif %}
+<h1 class="display-4">Retrieve Feedback</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<div>
+  <span class="heading">Overall Rating</span>
+  {% if count == 0 %}
+  <p>Total response: 0</p>
+  {% elif count == 1 %}
+  <p>Total response: 1</p>
+  {% else %}
+  <p>Total response: {{ count }} </p>
+  {% endif %}
+</div>
+<hr style="border:3px solid #f1f1f1">
+<div class="overall">
+<div class="row">
+  <div class="side">
+    <div>Very Satisfied</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-5"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>1</div>
+  </div>
+  <div class="side">
+    <div>Satisfied</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-4"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>0</div>
+  </div>
+  <div class="side">
+    <div>Neutral</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-3"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>0</div>
+  </div>
+  <div class="side">
+    <div>Unsatisfied</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-2"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>0</div>
+  </div>
+  <div class="side">
+    <div>Very unsatisfied</div>
+  </div>
+  <div class="middle">
+    <div class="bar-container">
+      <div class="bar-1"></div>
+    </div>
+  </div>
+  <div class="side right">
+    <div>2</div>
+  </div>
+</div>
+</div>
+<br>
+<style>
+td, th {
+   padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th{
+background-color: #23395d;
+color: white;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  height: 20%;
+}
+
+td {
+  text-align: center;
+  }
+
+tr:hover {
+background-color: #f5f5f5;
+}
+
+.btn-warning{
+  background-color: Orchid;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.btn-danger, .btn-secondary, .close{
+  background-color: Orchid;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.modal{
+display: none;
+background-color: lavender;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.overall {
+  margin: 0 auto; /* Center website */
+  max-width: 1000px; /* Max width */
+  padding: 20px;
+}
+
+.heading {
+  font-size: 25px;
+  margin-right: 25px;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+.checked {
+  color: orange;
+}
+
+
+.side {
+  float: left;
+  width: 15%;
+  margin-top: 10px;
+}
+
+.middle {
+  float: left;
+  width: 70%;
+  margin-top: 10px;
+}
+
+
+.right {
+  text-align: right;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.bar-container {
+  width: 100%;
+  background-color: #f1f1f1;
+  text-align: center;
+  color: white;
+}
+
+/* Individual bars */
+.bar-5 {width: 0%; height: 18px; background-color: #4CAF50;}
+.bar-4 {width: 0%; height: 18px; background-color: #2196F3;}
+.bar-3 {width: 0%; height: 18px; background-color: #00bcd4;}
+.bar-2 {width: 0%; height: 18px; background-color: #ff9800;}
+.bar-1 {width: 100%; height: 18px; background-color: #f44336;}
+
+
+@media (max-width: 400px) {
+  .side, .middle {
+    width: 100%;
+  }
+
+  .right {
+    display: none;
+  }
+}
+</style>
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Rating</th>
+        <th>Feedback</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for feedback in feedback_list %}
+      <tr>
+        <td>{{ feedback.get_feedback_id() }}</td>
+        {% if feedback.get_ratings() == "1" %}
+        <td>Very unsatisfied</td>
+        {% elif feedback.get_ratings() == "2" %}
+        <td>Unsatisfied</td>
+        {% elif feedback.get_ratings() == "3" %}
+        <td>Neutral</td>
+        {% elif feedback.get_ratings() == "4" %}
+        <td>Satisfied</td>
+        {% elif feedback.get_ratings() == "5" %}
+        <td>Very satisfied</td>
+        {% endif %}
+        <td>{{ feedback.get_remarks() }}</td>
+        <td><a href="/updateFeedback/{{feedback.get_feedback_id()}}" class="btn btn-warning">Update</a></td>
+        <td>
+          <form action="{{url_for('delete_feedback', id=feedback.get_feedback_id())}}" method="POST">
+            <!--        <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {#user.get_first_name()#} {#user.get_last_name()#}?');">-->
+              <!-- Button to Open the Modal -->
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal_{{feedback.get_feedback_id()}}">
+            Delete
+          </button>
+
+            <!-- The Modal -->
+            <div class="modal" id="myModal_{{feedback.get_feedback_id()}}">
+              <div class="modal-dialog">
+                <div class="modal-content">
+
+                  <!-- Modal Header -->
+                  <div class="modal-header">
+                    <h4 class="modal-title">Delete Confirmation</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+
+                  <!-- Modal body -->
+                  <div class="modal-body">
+                    Are you sure you want to delete {{feedback.get_feedback_id()}}?
+                  </div>
+
+
+                  <!-- Modal footer -->
+                  <div class="modal-footer">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

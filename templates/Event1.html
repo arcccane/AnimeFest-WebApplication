@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}AnimeFest Asia - Upcoming Events{% endblock %}
+
+{% block content %}
+
+<style>
+    h2,.detail{
+    text-align: center;
+    padding: 20px;
+    }
+
+    .event1{
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+mark{
+background-color: yellow;
+
+}
+</style>
+
+<h2>Dance Performance Group Real Akiba Boyz: Combining otaku life with street dancing</h2>
+<img src="static\img\event1.jpg" class="event1">
+<div class="detail">
+    {% for event in events_list %}
+    <p>Date: <mark>{{ event.get_date() }}</mark></p>
+    <p>Time: <mark>{{ event.get_starttime() }}</mark> - <mark>{{ event.get_endtime() }}</mark> </p>
+    {% endfor %}
+</div>
+
+<div class="brief">
+    <p>If you’re a fan of anime songs and watching street dancing, then you’ll quickly become a fan of RAB. They’ve got some pretty smooth moves, including impressive breakdancing, which you might remember seeing when they did the viral Koi Dance of four years ago. They’ve got a YouTube channel, an account on Nico Nico Video, and of course they’re active on social media platforms like Twitter, Instagram and Facebook, so it’s easy to check them out.</p>
+
+</div>
+
+{% endblock %}

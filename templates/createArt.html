@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Submission{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+
+h2,form{
+font-family: 'Potta One', cursive;
+}
+
+h2,h6{
+text-align: center;
+}
+
+hr{
+height:2px;
+border-width:0;
+color:gray;
+background-color:gray;
+width: 50%;
+}
+
+div.images{
+text-align: center;
+}
+
+form{
+border: 2px solid darkorange;
+border-radius: 5px;
+padding: 10px;
+background-color: lightblue;
+}
+</style>
+<div>
+<h2 class="display-4"><b>FAN ART CONTEST SUBMISSION</b></h2>
+  <h6>Your information (except E-mail and Phone Number) will be displayed to viewers along with ur submitted Fan Art!</h6>
+  <h6>If needed, please request for an information update/delete through Customer Support -> Enquiry</h6>
+<hr>
+  <div class="images">
+  <img src="static/img/download (1).jpg" alt="Anime" width="64">
+    <img src="static/img/images.jpg" alt="Anime" width="64">
+      <img src="static/img/drawing-your-oc-or-fanart-in-monochrome-anime-style.jpg" alt="Anime" width="64">
+  </div>
+<br>
+<br>
+<form method="POST" action="" enctype="multipart/form-data">
+  <div class="form-group">
+    {{ render_field(form.first_name, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.last_name, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.email, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.phone, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.age, class="form-control") }}
+  </div>
+  <div class="form-group" >
+    {{ render_field(form.gender, class="form-check", style="list-style-type:none", style="background-color:Transparent") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.sname, class="form-control") }}
+  </div>
+  <div class="form-group">
+   <input type="file" name="file">
+  </div>
+  <br>
+  <input type="submit" value="Submit" class="btn btn-primary"/>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}AFA - Create Enquiry{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h5>Find us on Social Media!</h5>
+<a href="https://www.facebook.com/animefestivalasia/" class="fa fa-facebook"></a>
+<a href="https://www.instagram.com/animefestivalasia/?hl=en" class="fa fa-instagram"></a>
+
+
+<style>
+.fa {
+  padding: 10px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+  margin: 10px 2px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+}
+</style>
+
+<hr style="border:3px solid #f1f1f1">
+
+<h5>Submit Enquiry</h5>
+
+<form method="POST" action="">
+  <div class="form-group">
+    {{ render_field(form.name, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.email, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.topic, class="form-control") }}
+  </div>
+  <div id="prof">
+    <div class="form-group">
+      {{ render_field(form.enquirys, class="form-control") }}
+    </div>
+  </div>
+  <input type="submit" value="Submit" class="btn btn-primary"/>
+</form>
+{% endblock %}

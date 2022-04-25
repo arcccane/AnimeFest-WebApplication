@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}AnimeFest Asia - Upcoming Events{% endblock %}
+
+{% block content %}
+
+<style>
+    h2,.detail{
+    text-align: center;
+    padding: 20px;
+    }
+
+    .event2{
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    }
+
+mark{
+background-color: yellow;
+
+}
+</style>
+
+<h2>Doujin Market</h2>
+<img src="static\img\event2.jpg" class="event2">
+<div class="detail">
+    {% for event in events_list %}
+    <p>Date: <mark>{{ event.get_date() }}</mark></p>
+    <p>Time: <mark>{{ event.get_starttime() }}</mark> - <mark>{{ event.get_endtime() }}</mark></p>
+    {% endfor %}
+</div>
+
+<div class="brief">
+    <p>Doujin Market is Singapore's largest community curated youth arts and illustration fair. The event celebrates doujin - fan communities passionate about creating art, the original and derivative fan works that they produce, and their aspirations for self-publishing comics, games, manga, music and stories.</p>
+
+</div>
+
+{% endblock %}

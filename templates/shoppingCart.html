@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}AFA - Retrieve Users{% endblock %}
+
+{% block content %}
+
+<style>
+h1{
+text-align: center;
+}
+
+.m{
+    text-align: center;
+    width: 70%;
+    border: 10px solid green;
+    padding: 5px;
+    margin: auto;
+    }
+.d{
+    position: relative;
+    right: 10px;
+    left: 1050px;
+    bottom: 20px;
+    }
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  padding: 5px;
+}
+
+</style>
+
+<h1 class="display-4">Shopping Cart</h1>
+
+<div class="m">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Promotion</th>
+            <th>Company</th>
+            <th>Category</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in cart_list %}
+        <tr>
+            <td>{{ product.get_product_name() }}</td>
+            <td>{{ product.get_promotion() }}</td>
+
+            {% if product.get_company() == "A" %}
+            <td>ANIPLEX</td>
+            {% elif product.get_company() == "H" %}
+            <td>Hakken</td>
+            {% elif product.get_company() == "LT" %}
+            <td>La Tendos</td>
+            {% endif %}
+            <td>{{ product.get_category() }}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+<div class="d">
+
+<a href="/payment/"><button type="button" class="btn btn-primary">Proceed to Payment</button></a>
+
+
+</div>
+
+{% endblock %}

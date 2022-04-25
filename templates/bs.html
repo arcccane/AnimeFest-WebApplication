@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}AFA - Create User{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<style>
+body{
+    background-image: url('static/img/genshinbg.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    }
+h1{
+    text-decoration: underline;
+    text-align: center;
+    }
+
+.m{
+    background-color: lightblue;
+    text-align: center;
+    width: 30%;
+    border: 1px solid green;
+    padding: 5px;
+    margin: auto;
+    }
+
+img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+  padding: 5px;
+
+}
+
+</style>
+<body>
+<h1 class="display-4">Best Selling</h1>
+
+    <div>
+           {% for product in products_list %}
+
+                {% if product.get_category() == "B" %}
+                    <img src="static\img\DemonSlayer.jpg">
+    <div class="m">
+                    <p> Name : {{ product.get_product_name() }} </p>
+                    <p>  Price : {{ product.get_price() }}</p>
+                    <p>Promotion: {{ product.get_promotion() }}</p>
+
+                    {% if product.get_company() == "A" %}
+                    <p>By ANIPLEX</p>
+                    {% elif product.get_company() == "H" %}
+                    <p>By Hakken</p>
+                    {% elif product.get_company() == "LT" %}
+                    <p>By La Tendos</p>
+                    {% endif %}
+                    <p>Description:</p> {{ product.get_product_description() }}
+                    <p></p>
+
+                    <form method="POST" action="/shoppingCart/{{ product.get_product_id() }}">
+                        <button>Add To Cart</button>
+                    </form>
+
+                    <p></p>
+
+                {% endif %}
+    </div>
+            {% endfor %}
+
+    </div>
+
+</body>
+
+{% endblock %}

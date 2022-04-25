@@ -1,0 +1,123 @@
+{% block content %}
+<style>
+    .nav-item2{
+    float: right;
+    }
+
+</style>
+<ul>
+    <li><a href="/home">Home</a></li>
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">E-store</a>
+        <div class="dropdown-content">
+                <a href="/bs">Best Selling</a>
+                <a href="/na">New Arrivals</a>
+                <a href="/n">Nendoroids</a>
+                <a href="/f">Figurines</a>
+                <a href="/p">Promotions</a>
+                <a href="/testcart">Cart</a>
+        </div>
+    </li>
+    <li><a href="/ehome">Entertainment</a></li>
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Customer Support</a>
+        <div class="dropdown-content">
+                <a href="/createEnquiry">Enquiry</a>
+                <a href="/createFeedback">Feedback</a>
+        </div>
+    </li>
+
+    {% if session.get('admin_account') == True and session["customer_account"] == False %}
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+        <a class="dropbtn" href="#" id="navbardrop1" data-toggle="dropdown">
+            User Management
+        </a>
+        <div class="dropdown-content">
+            <a class="dropdown-item" href="/createUser">Create User</a>
+            <a class="dropdown-item" href="/retrieveUsers">Retrieve Users</a>
+        </div>
+    </li>
+    {% endif %}
+
+    {% if session.get('admin_account') == True and session["customer_account"] == False %}
+    <li class="nav-item dropdown">
+        <a class="dropbtn" href="#" id="navbardrop2" data-toggle="dropdown">
+            Sales Management
+        </a>
+        <div class="dropdown-content">
+            <a class="dropdown-item" href="/createProduct">Create Product</a>
+            <a class="dropdown-item" href="/retrieveProduct">Retrieve Product</a>
+            <a class="dropdown-item" href="/retrieveProduct">Update/Delete Products</a>
+        </div>
+    </li>
+    {% endif %}
+
+    {% if session.get('admin_account') == True and session["customer_account"] == False %}
+    <li class="nav-item dropdown">
+        <a class="dropbtn" href="#" id="navbardrop3" data-toggle="dropdown">
+            Entertainment Management
+        </a>
+        <div class="dropdown-content">
+            <a class="dropdown-item" href="/createArt">Create Fan Art</a>
+            <a class="dropdown-item" href="/createPost">Create Post</a>
+            <a class="dropdown-item" href="/view">View Fan Art</a>
+            <a class="dropdown-item" href="/animedia">View Livestream and Posts</a>
+            <a class="dropdown-item" href="/manage">Manage Fan Arts</a>
+            <a class="dropdown-item" href="/animediamanage">Manage Posts</a>
+
+        </div>
+    </li>
+    {% endif %}
+
+    {% if session.get('admin_account') == True and session["customer_account"] == False %}
+    <li class="nav-item dropdown">
+        <a class="dropbtn" href="#" id="navbardrop4" data-toggle="dropdown">
+            Support Management
+        </a>
+        <div class="dropdown-content">
+            <a class="dropdown-item" href="/retrieveFeedback">Retrieve Feedback</a>
+            <a class="dropdown-item" href="/retrieveEnquiry">Retrieve Enquiry</a>
+            <a class="dropdown-item" href="/createEvent">Create Event</a>
+            <a class="dropdown-item" href="/retrieveEvent">Retrieve Event</a>
+        </div>
+    </li>
+    {% endif %}
+
+
+   {% if session.get('admin_account') == False and session["customer_account"] == True and session["Account_Status"] == True %}
+        <li style="padding-left:550px">
+          <a href="/profile">Profile</a>
+        </li>
+    {% endif %}
+
+    {% if session.get('admin_account') == False and session["customer_account"] == False and session["Account_Status"] == False %}
+    <li class="nav-item" style="padding-left:550px">
+        <a href="/createUser">Sign up</a>
+    </li>
+    {%endif%}
+
+
+    {% if session["customer_account"] == True and session["admin_account"] == False and session["Account_Status"] == False %}
+     <li class="nav-item" style="padding-left:550px">
+        <a href="/createUser">Sign up</a>
+    </li>
+    {%endif%}
+
+    {% if session["Account_Status"] == False %}
+    <li class="nav-item">
+          <a href="/login">Login Account</a>
+      </li>
+    {% elif session["Account_Status"] == True and session["admin_account"] == True %}
+    <li class="nav-item" style="padding-left:80px">
+          <a href="/Logout">Logout Account</a>
+      </li>
+    {% else %}
+    <li class="nav-item">
+          <a href="/Logout">Logout Account</a>
+      </li>
+    {% endif %}
+
+
+</ul>
+{% endblock%}

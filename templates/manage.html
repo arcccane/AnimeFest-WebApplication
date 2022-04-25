@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}Entertainment - Manage{% endblock %}
+
+{% block content %}
+<html>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+
+h2{
+font-family: 'Potta One', cursive;
+}
+
+div.gallery {
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.top{
+text-align: center;
+}
+</style>
+</head>
+<body>
+{% if 'art_created' in session %}
+<div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('art_created', None) }} 's art was created.
+</div>
+{% elif 'art_updated' in session %}
+<div class="alert alert-warning alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('art_updated', None) }} 's art was updated.
+</div>
+{% elif 'art_deleted' in session %}
+<div class="alert alert-danger alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  {{ session.pop('art_deleted', None) }} 's art was deleted.
+</div>
+{% endif %}
+
+<div class="top">
+  <h2>Fan Art Gallery (Admin)</h2>
+  {% if count == 0 %}
+  <p>There are no fan arts being displayed.</p>
+  {% elif count == 1 %}
+  <p>There is 1 fan arts being displayed.</p>
+  {% else %}
+  <p>There are <b>{{ count }}</b> fan arts being displayed.</p>
+  {% endif %}
+</div>
+
+{% for user in users_list %}
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="{{user.get_image_location()}}">
+      <img src="{{user.get_image_location()}}" alt="Anime" width="600" height="400">
+    </a>
+    <div class="desc">
+      <p><b><u>Fan Art {{ user.get_userid() }}</u></b></p>
+      <p>Name of Art: <b>{{ user.get_sname() }}</b></p>
+      <p>By: <b>{{ user.get_firstname() }} {{ user.get_lastname() }}</b></p>
+      <p>Gender: <b>{{ user.get_gender() }}</b></p>
+      <p>Age: <b>{{ user.get_age() }}</b></p>
+      <p>Email: <b>{{ user.get_email() }}</b></p>
+      <p>Phone Number: <b>{{ user.get_phone() }}</b></p>
+      <a href="/updateArt/{{user.get_userid()}}" class="btn btn-warning">Update</a>
+      <form action="{{url_for('delete_art', id=user.get_userid())}}" method="POST">
+        <br>
+  <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#myModal_{{user.get_userid()}}">
+    Delete
+  </button>
+
+  <div class="modal fade" id="myModal_{{user.get_userid()}}">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h4 class="modal-title">Delete Confirmation</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            Are you sure you want to delete {{user.get_firstname()}} {{user.get_lastname()}}?
+        </div>
+
+        <div class="modal-footer">
+          <input type="submit" value="Delete" class="btn btn-danger">
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+{% endfor %}
+
+<div class="clearfix"></div>
+</body>
+</html>
+
+{% endblock %}

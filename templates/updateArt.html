@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Update Submission{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+
+h2,form{
+font-family: 'Potta One', cursive;
+}
+
+.display-4{
+text-align: center;
+}
+
+hr{
+height:2px;
+border-width:0;
+color:gray;
+background-color:gray;
+width: 50%;
+}
+
+form{
+border: 2px solid darkorange;
+border-radius: 5px;
+padding: 10px;
+background-color: lightblue;
+}
+</style>
+<h1 class="display-4"><b>FAN ART CONTEST SUBMISSION</b></h1>
+<br>
+<br>
+<h2>Admin Update</h2>
+<form method="POST" action="">
+  <div class="form-group">
+    {{ render_field(form.first_name, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.last_name, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.email, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.phone, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.age, class="form-control") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.gender, class="form-check", style="list-style-type:none", style="background-color:Transparent") }}
+  </div>
+  <div class="form-group">
+    {{ render_field(form.sname, class="form-control") }}
+  </div>
+  <br>
+  <input type="submit" value="Submit" class="btn btn-primary"/>
+</form>
+{% endblock %}

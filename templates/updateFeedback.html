@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}AnimeFest Asia - Update Feedback{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<h1 class="display-4">Update Feedback</h1>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+<style>
+td.whystars {
+  position: relative;
+  display: inline-block;
+  border: none;
+  font-size: 15px;
+  margin: 50px ;
+  left: 30%;
+  transform: translateX(-50%);
+}
+
+td.whystars input {
+  border: 0;
+  width: 3px;
+  height: 3px;
+  overflow: hidden;
+  position: absolute !important;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  opacity: 0;
+}
+
+td.whystars label {
+  position: relative;
+  float: right;
+  color: black;
+}
+
+td.whystars label:before {
+  margin: 2px;
+  content: "\f005";
+  font-family: FontAwesome;
+  display: inline-block;
+  font-size: 1.5em;
+  color: #ccc;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+td.whystars input:checked ~ label:before {
+  color: #FFC107;
+}
+
+td.whystars label:hover ~ label:before {
+  color: #ffdb70;
+}
+
+td.whystars label:hover:before {
+  color: #FFC107;
+}
+
+.form-group{
+font-size: 18px;
+}
+
+.form-control{
+  background-color: grey;
+  opacity: 0.5;
+  font-size: 15px,black;
+  margin: auto ;
+  width: 50%;
+  padding: 10px;
+
+  border-radius: 25px;
+}
+
+.btn-primary{
+  background-color: Orchid;
+  border: none;
+  color: white;
+  margin: 20px;
+  padding: 15px 32px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  position: absolute;
+  right: 50%;
+}
+
+</style>
+
+<form method="POST" action="">
+ <div class="stars">
+    <table class = 'omgstars'>
+      <tr><td>{{ form.ratings.label }}</td></tr>
+      <tr class = 'ggstars'>
+        {% for subfield in form.ratings %}
+          <td class = 'whystars'>{{ subfield }}{{ subfield.label }}</td>
+        {% endfor %}
+      </tr>
+    </table>
+  </div>
+  <div id="prof">
+    <div class="form-group">
+      {{ render_field(form.remarks, class="form-control") }}
+    </div>
+  </div>
+  <input type="submit" value="Submit" class="btn btn-primary"/>
+</form>
+{% endblock %}

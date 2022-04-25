@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}AnimeFest Asia - Home{% endblock %}
+
+{% block content %}
+
+<style>
+
+h1,h2,p {
+text-align: center;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  left: 270px;
+    text-align: center;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+
+</style>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes style="border-radius:12px;width:140px;margin-left:850px">
+    {% for message in messages %}
+    <li style="list-style-type:none; background-color:lightgreen;width:140px;padding-left:35px;border-radius: 12px;">{{ message }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<h1 class="display-4">Welcome!</h1>
+
+<div class="slideshow-container">
+
+    <div class="mySlides fade">
+        <img src="static\img\AnimeFest.jpg" style="width:75%">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="static\img\Cosplay.jpg" style="width:75%">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="static\img\AFA.jpg" style="width:75%">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="static\img\AFABooth.jpg" style="width:75%">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="static\img\AFAonline.jpg" style="width:75%">
+    </div>
+
+</div>
+<br>
+
+
+<div style="text-align:center">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+
+</script>
+<hr>
+<br>
+<h2>AFA is a specialised business unit of SOZO:</h2>
+<p>Born in 2008, AFA is the largest and most followed J-pop culture event in Southeast Asia (“SEA”) covering Singapore,
+    Indonesia & Malaysia, with 9 festivals in the past 6 years exceeding 130,000 attendees in 2013. AFA has become a
+    household name to J-Pop Culture lovers in the SE Asian region, and is the leading and most effective content
+    delivery platform, centring around all things Japanese Pop Culture.</p>
+
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Upcoming Event</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for event in events_list %}
+      <tr>
+          <td><a href="{{ event.get_url() }}"> {{ event.get_title() }}</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Library Loan System - Create User{% endblock %}
+
+{% block content %}
+{% from "includes/_formHelper.html" import render_field %}
+
+<style>
+div {
+  position: absolute;
+    top: 45%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+</style>
+
+
+<div>
+    <h2>Your Account have been deleted.</h2>
+    <br>
+    <form action="/createUser">
+        <input type="submit" value="Click here to create another account">
+    </form>
+    <br>
+    <form action="/login">
+        <input type="submit" value="Click here to login into another account">
+    </form>
+    <br>
+    <form action="/home">
+        <input type="submit" value="Click here to go to Home page">
+    </form>
+</div>
+
+
+{% endblock %}

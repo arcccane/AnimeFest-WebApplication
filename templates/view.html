@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}Entertainment - View{% endblock %}
+{% block content %}
+<html>
+<head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Potta+One&display=swap');
+
+h2{
+font-family: 'Potta One', cursive;
+}
+
+div.gallery {
+  border: 3px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 3px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+
+div.egdesc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.top{
+text-align: center;
+}
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+}
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+</style>
+</head>
+<body>
+
+<div class="top">
+  <h2>Fan Art Gallery</h2>
+  {% if count == 0 %}
+  <p>There are no fan arts being displayed.</p>
+  {% elif count == 1 %}
+  <p>There is 1 fan arts being displayed.</p>
+  {% else %}
+  <p>There are <b>{{ count }}</b> fan arts being displayed.</p>
+  {% endif %}
+</div>
+
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="static/img/drawing-your-oc-or-fanart-in-monochrome-anime-style.jpg">
+      <img src="static/img/drawing-your-oc-or-fanart-in-monochrome-anime-style.jpg" alt="Anime" width="600" height="400">
+    </a>
+    <div class="egdesc"> Your Information</div>
+  </div>
+</div>
+{% for user in users_list %}
+<div class="responsive">
+  <div class="gallery">
+    <a target="_blank" href="{{user.get_image_location()}}">
+      <img src="{{user.get_image_location()}}" alt="Anime" width="600" height="400">
+    </a>
+    <button class="collapsible">Creator Info</button>
+    <div class="desc">
+      <p><b><u>Fan Art {{ user.get_userid() }}</u></b></p>
+      <p>Name of Art: <b>{{ user.get_sname() }}</b></p>
+      <p>By: <b>{{ user.get_firstname() }} {{ user.get_lastname() }}</b></p>
+      <p>Gender: <b>{{ user.get_gender() }}</b></p>
+      <p>Age: <b>{{ user.get_age() }}</b></p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+    <script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<div class="clearfix"></div>
+</body>
+</html>
+
+{% endblock %}
+
